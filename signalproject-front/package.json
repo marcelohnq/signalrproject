@@ -1,0 +1,52 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@microsoft/signalr": "^8.0.7",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/js-cookie": "^3.0.6",
+    "@types/node": "^16.18.104",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "chart.js": "^4.4.3",
+    "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.3.1",
+    "react-scripts": "5.0.1",
+    "react-signalr": "0.2.8",
+    "react-use-websocket": "^4.8.1",
+    "socket.io-client": "^4.7.5",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start GENERATE_SOURCEMAP=false",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12"
+  }
+}
