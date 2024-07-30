@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-namespace SignalrProject;
+namespace ProvaConceitoSignalR;
 
 public class RelatorioHub : Hub
 {
