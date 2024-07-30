@@ -11,7 +11,7 @@ import {
 } from 'chart.js';
 import { useCallback, useEffect, useState } from 'react';
 // import { Bar } from 'react-chartjs-2';
-import useWebSocket from 'react-use-websocket';
+import useWebSocket, { ReadyState } from "react-use-websocket"
 import IResponse, { DadosValores } from './interfaces/relatorio-hub.interface';
 import { Bar } from 'react-chartjs-2';
 import IDataset from './interfaces/dataset.interface';
@@ -45,10 +45,10 @@ export const options = {
 
 function App() {
 
-  const [socketUrl] = useState('ws://localhost:5000/hub');
+  const [socketUrl] = useState('ws://localhost:8080/hub');
   const [anos, setAnos] = useState<DadosValores[]>([]);
 
-  const { sendMessage, lastMessage } = useWebSocket(socketUrl);
+  const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
 
   const json = '{"protocol": "json","version": 1}';
 
@@ -60,14 +60,17 @@ function App() {
     datasets: datasets
   };
 
+  // Run when the connection state (readyState) changes
   useEffect(() => {
-    setTimeout(() => {
+    console.log(`Connection state: ${readyState}`);
+
+    if (readyState === ReadyState.OPEN) {
       sendMessage(json);
-    }, 1000);
-  }, []);
+    }
+  }, [readyState])
 
+  // Run when a new WebSocket message is received (lastJsonMessage)
   useEffect(() => {
-
     if (lastMessage !== null) {
       const mensagemTratada = lastMessage.data.substring(0, lastMessage.data.length - 1);
       const responseObj: IResponse = JSON.parse(mensagemTratada);
@@ -75,9 +78,7 @@ function App() {
       if (responseObj?.arguments) {
         const valores = responseObj.arguments;
 
-        if (labels.length == 0)
-          setLabels(Object.keys(valores[0]));
-
+        setLabels(Object.keys(valores[0]));
         setDatasets([{
           label: 'Total de Pessoas',
           data: Object.values(valores[0]),

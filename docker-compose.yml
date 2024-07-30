@@ -3,6 +3,7 @@ version: '3.4'
 services:
   provaconceitosignalr:
     image: ${DOCKER_REGISTRY-}provaconceitosignalr
+    container_name: provaconceitosignalr
     build:
       context: .
       dockerfile: ProvaConceitoSignalR/Dockerfile
@@ -11,6 +12,18 @@ services:
       - "8090:8081"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+
+  react:
+    image: ${DOCKER_REGISTRY-}reactapp
+    build:
+      context: .
+      dockerfile: signalproject-front/Dockerfile
+    depends_on:
+      - provaconceitosignalr
+    volumes:
+      - ./signalproject-front/src:/app/src
+    ports:
+      - 3000:3000
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
